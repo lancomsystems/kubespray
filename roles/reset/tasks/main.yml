@@ -17,6 +17,7 @@
   with_items:
     - kubelet
     - etcd
+    - calico-node
   register: services_removed
   tags: ['services']
 
