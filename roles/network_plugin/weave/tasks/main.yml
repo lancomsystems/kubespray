@@ -16,6 +16,12 @@
     state: present
   when: modinfo_br_netfilter.rc == 0
 
+- name: Persist br_netfilter module
+  copy:
+    dest: /etc/modules-load.d/kubespray-br_netfilter.conf
+    content: br_netfilter
+  when: modinfo_br_netfilter.rc == 0
+
 - name: Weave | Copy cni plugins from hyperkube
   command: "{{ docker_bin_dir }}/docker run --rm -v /opt/cni/bin:/cnibindir {{ hyperkube_image_repo }}:{{ hyperkube_image_tag }} /bin/cp -r /opt/cni/bin/. /cnibindir/"
   register: cni_task_result
